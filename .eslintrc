@@ -17,6 +17,7 @@
     "no-unused-vars": ["error", { "vars": "local", "args": "none" }],
     "arrow-parens": ["error", "always"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/jsx-boolean-value": ["always"]
+    "react/jsx-boolean-value": ["always"],
+    "jsx-a11y/anchor-is-valid": ["always"]
   }
 }
