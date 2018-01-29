@@ -1,45 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
-
-const ExpenseDashboardPage = () => (
-  <div>
-    This is from my Dashboard Component.
-  </div>
-);
-
-const AddExpensePage = () => (
-  <div>
-    This is from my AddExpense Component.
-  </div>
-);
-
-const EditExpensePage = () => (
-  <div>
-    This is from my EditExpense Component.
-  </div>
-);
-
-const HelpPage = () => (
-  <div>
-    This is from my Help Component.
-  </div>
-);
-
-const NotFoundPage = () => (
-  <div>
-    404 Not Found! - <Link to="/">Go Home</Link>
-  </div>
-);
-
-const Header = () => (
-  <header>
-    <h1>Expensify</h1>
-    <NavLink to="/" activeClassName="is-active" exact={true}>Dashboard</NavLink>
-    <NavLink to="/create" activeClassName="is-active">Create Expense</NavLink>
-    <NavLink to="/edit" activeClassName="is-active">Edit Expense</NavLink>
-    <NavLink to="/help" activeClassName="is-active">Help</NavLink>
-  </header>
-);
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Header from '../components/Header';
+import ExpenseDashboardPage from '../components/ExpenseDashboardPage';
+import AddExpensePage from '../components/AddExpensePage';
+import EditExpensePage from '../components/EditExpensePage';
+import HelpPage from '../components/HelpPage';
+import NotFoundPage from '../components/NotFoundPage';
 
 const AppRouter = () => (
   <BrowserRouter>
