@@ -18,6 +18,7 @@
     "arrow-parens": ["error", "always"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-boolean-value": ["always"],
-    "jsx-a11y/anchor-is-valid": ["always"]
+    "jsx-a11y/anchor-is-valid": ["always"],
+    "no-case-declarations": 0
   }
 }
