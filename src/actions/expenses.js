@@ -43,10 +43,20 @@ export const startAddExpense = (expenseData = {}) => {
 };
 
 // REMOVE_EXPENSE
-export const removeExpense = ({ id } = {}) => ({ // object desctructing, all we need is ID
+export const removeExpense = ({ id } = {}) => ({ // object desctructing, all we need is ID - set up default {}
   type: 'REMOVE_EXPENSE',
   id // ES6 shorthand => id: id
 });
+
+// START REMOVE EXPENSE ASYNCH ACTION THAT DISPATCHES ACTION
+export const startRemoveExpense = ({ id } = {}) => {
+  // return a function, pass dispatch from redux library
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).remove().then(() => {
+      dispatch(removeExpense({ id }));
+    });
+  };
+};
 
 // EDIT_EXPENSE
 export const editExpense = (id, updates) => ({
