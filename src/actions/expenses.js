@@ -18,6 +18,7 @@ export const addExpense = (expense) => ({
   expense: expense
 });
 
+// START ADD EXPENSE FUNCTION THAT DISPATCHES ACTION
 export const startAddExpense = (expenseData = {}) => {
   // only works due to redux-thunk -> gives us access to dispatch
   return (dispatch) => {
@@ -53,3 +54,27 @@ export const editExpense = (id, updates) => ({
   id,
   updates
 });
+
+// SET_EXPENSES
+export const setExpenses = (expenses) => ({
+  type: 'SET_EXPENSES',
+  expenses
+});
+
+// START SET EXPENSE FUNCITON THAT DISPATCHES ACTION
+export const startSetExpenses = () => {
+  return (dispatch) => {
+    return database.ref('expenses').once('value').then((snapshot) => {
+      // data from firebase does not come back in array, must parse data and push into array
+      const expenses = [];
+
+      snapshot.forEach((childSnapshot) => {
+        expenses.push({
+          id: childSnapshot.key,
+          ...childSnapshot.val()
+        });
+      });
+      dispatch(setExpenses(expenses));
+    });
+  };
+};
