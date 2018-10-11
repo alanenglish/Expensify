@@ -20,8 +20,9 @@ export const addExpense = (expense) => ({
 
 // START ADD EXPENSE FUNCTION THAT DISPATCHES ACTION
 export const startAddExpense = (expenseData = {}) => {
-  // only works due to redux-thunk -> gives us access to dispatch
-  return (dispatch) => {
+  // only works due to redux-thunk -> gives us access to dispatch, also gets called with getState (to get current state)
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     // create 4 consts and define default value if not passed in
     const {
       description = '',
@@ -33,7 +34,7 @@ export const startAddExpense = (expenseData = {}) => {
     const expense = { description, note, amount, createdAt };
 
     // firebase returns the reference of the item created
-    return database.ref('expenses').push(expense).then((ref) => {
+    return database.ref(`users/${uid}/expenses`).push(expense).then((ref) => {
       dispatch(addExpense({
         id: ref.key,
         ...expense
@@ -51,8 +52,9 @@ export const removeExpense = ({ id } = {}) => ({ // object desctructing, all we 
 // START REMOVE EXPENSE ASYNCH ACTION THAT DISPATCHES ACTION
 export const startRemoveExpense = ({ id } = {}) => {
   // return a function, pass dispatch from redux library
-  return (dispatch) => {
-    return database.ref(`expenses/${id}`).remove().then(() => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/expenses/${id}`).remove().then(() => {
       dispatch(removeExpense({ id }));
     });
   };
@@ -67,8 +69,9 @@ export const editExpense = (id, updates) => ({
 
 // START EDIT EXPENSE ASYNCH ACTION THAT DISTACHES ACTION
 export const startEditExpense = (id, updates) => {
-  return (dispatch) => {
-    return database.ref(`expenses/${id}`).update(updates).then(() => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/expenses/${id}`).update(updates).then(() => {
       dispatch(editExpense(id, updates));
     });
   };
@@ -82,8 +85,9 @@ export const setExpenses = (expenses) => ({
 
 // START SET EXPENSE FUNCITON THAT DISPATCHES ACTION
 export const startSetExpenses = () => {
-  return (dispatch) => {
-    return database.ref('expenses').once('value').then((snapshot) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/expenses`).once('value').then((snapshot) => {
       // data from firebase does not come back in array, must parse data and push into array
       const expenses = [];
 
