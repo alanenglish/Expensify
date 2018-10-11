@@ -1,4 +1,7 @@
 // rem has better support for accessibility
+* {
+  box-sizing: border-box;
+}
 
 html {
   font-size: 62.5%;
